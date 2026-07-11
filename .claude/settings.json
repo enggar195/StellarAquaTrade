@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(break)",
+      "Bash(curl -s -o /tmp/claude-1000/-home-eng-labs-projects-stellar-aquatrade-fe/553f29ae-2ee3-4b49-b058-1c444c94671e/scratchpad/page.html -w '%{http_code}' --max-time 20 http://127.0.0.1:3007/)"
+    ]
+  }
+}

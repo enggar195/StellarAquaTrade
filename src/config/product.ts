@@ -6,4 +6,11 @@ export const productConfig = {
   referenceLabel: "Trade reference",
   referencePlaceholder: "FISH-TRD-001",
   level: "White Belt — Level 1",
+  tagline: "Settle cross-border ornamental fish trades in seconds — non-custodial, on the Stellar network.",
+  highlights: [
+    "Freighter connect",
+    "Testnet guarded",
+    "Native XLM",
+    "Instant settlement",
+  ],
 } as const;

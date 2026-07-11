@@ -6,6 +6,8 @@ import {
   paymentSchema,
   type PaymentInput,
 } from "@/features/payment/payment-schema";
+import { AquaBackground } from "@/components/aqua-background";
+import { OceanScene } from "@/components/ocean-scene";
 import { productConfig } from "@/config/product";
 import { stellarConfig } from "@/lib/stellar/config";
 import {
@@ -199,18 +201,25 @@ export function LevelOneDapp() {
   }
 
   return (
-    <main className="page-shell">
-      <section className="hero-card">
-        <div>
-          <p className="eyebrow">{productConfig.level}</p>
-          <h1>{productConfig.name}</h1>
-          <p className="hero-copy">{productConfig.description}</p>
-        </div>
-        <span className="network-badge">STELLAR TESTNET</span>
-      </section>
+    <main className="app-split">
+      <AquaBackground />
 
-      <section className="grid-layout">
-        <article className="panel">
+      {/* ===== Left: interactive column (glass) ===== */}
+      <section className="app-form-col">
+        <div className="app-form-inner">
+          <header className="form-intro">
+            <div className="hero-topline">
+              <p className="eyebrow">{productConfig.level}</p>
+              <span className="network-badge">STELLAR TESTNET</span>
+            </div>
+            <h1 className="form-title">Send test XLM on Stellar</h1>
+            <p className="form-sub">
+              Connect Freighter, stay on Testnet, and settle an ornamental-fish
+              trade in seconds — non-custodial, no backend.
+            </p>
+          </header>
+
+          <article className="panel">
           <div className="panel-heading">
             <div>
               <p className="section-label">Wallet</p>
@@ -328,33 +337,63 @@ export function LevelOneDapp() {
             </button>
           </form>
         </article>
+
+        {notice && <aside className="notice-card">{notice}</aside>}
+
+        {transactionResult && (
+          <section className={`result-card ${transactionResult.status}`}>
+            <div>
+              <p className="section-label">Transaction result</p>
+              <h2>{transactionResult.status === "success" ? "Success" : "Failed"}</h2>
+              <p>{transactionResult.message}</p>
+            </div>
+            {transactionResult.hash && (
+              <div className="transaction-meta">
+                <code>{transactionResult.hash}</code>
+                {explorerTransactionUrl && (
+                  <a href={explorerTransactionUrl} target="_blank" rel="noreferrer">
+                    View on Stellar Expert
+                  </a>
+                )}
+              </div>
+            )}
+          </section>
+        )}
+
+          <footer>
+            Testnet only. Never enter a seed phrase or secret key into this
+            application.
+          </footer>
+        </div>
       </section>
 
-      {notice && <aside className="notice-card">{notice}</aside>}
+      {/* ===== Right: full-height ocean showcase (full-bleed, no card) ===== */}
+      <aside className="app-showcase">
+        <OceanScene />
+        <div className="showcase-scrim" aria-hidden="true" />
 
-      {transactionResult && (
-        <section className={`result-card ${transactionResult.status}`}>
+        <div className="showcase-brand">
+          <span className="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C12 2 4 11 4 16a8 8 0 0 0 16 0c0-5-8-14-8-14Z" />
+            </svg>
+          </span>
           <div>
-            <p className="section-label">Transaction result</p>
-            <h2>{transactionResult.status === "success" ? "Success" : "Failed"}</h2>
-            <p>{transactionResult.message}</p>
+            <p className="brand-name">{productConfig.name}</p>
+            <p className="brand-sub">Stellar Testnet · White Belt L1</p>
           </div>
-          {transactionResult.hash && (
-            <div className="transaction-meta">
-              <code>{transactionResult.hash}</code>
-              {explorerTransactionUrl && (
-                <a href={explorerTransactionUrl} target="_blank" rel="noreferrer">
-                  View on Stellar Expert
-                </a>
-              )}
-            </div>
-          )}
-        </section>
-      )}
+        </div>
 
-      <footer>
-        Testnet only. Never enter a seed phrase or secret key into this application.
-      </footer>
+        <div className="showcase-copy">
+          <h2 className="showcase-title">{productConfig.tagline}</h2>
+          <p className="showcase-desc">{productConfig.description}</p>
+          <ul className="hero-chips">
+            {productConfig.highlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </aside>
     </main>
   );
 }
