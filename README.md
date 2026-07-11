@@ -15,6 +15,24 @@ This public frontend dApp intentionally implements only the Level 1 fundamentals
 
 Future product modules such as trade orders, documents, shipment, escrow, claims, quality inspection, and smart contracts are roadmap items and are not represented as completed Level 1 features.
 
+## Phases and branches
+
+AquaTrade follows the **Stellar Journey** belt system. Each phase is developed on
+its own branch so belts progress independently and can be reviewed in isolation.
+
+| Phase | Focus | Branch |
+|---|---|---|
+| **White Belt — Level 1** _(current)_ | Public Testnet payment dApp — Freighter connect/disconnect, Testnet guard, XLM balance, Friendbot funding, Testnet payment, success/failure + transaction hash. Plus locale-aware routing (`en` / `id` / `zh-CN`), the public **Test XLM** page, and a **Login** UI prototype (Atomic Design + Storybook). | `WHITE-BELT-L1` |
+| Future belts | Higher levels of the journey (escrow, smart contracts, full trade workflow) | one branch per phase (`WHITE-BELT-L2`, `YELLOW-BELT-L1`, …) |
+
+**Routing:** `/` redirects to `/{locale}/login`. The functional White Belt
+deliverable is the public `/{locale}/test-xlm` page, which is never gated behind
+Login.
+
+> The Login page is a frontend prototype only — it performs no authentication and
+> stores no credentials. All wallet signing happens in Freighter on the Test XLM
+> page.
+
 ## Stack
 
 - Next.js 16 + React 19 + TypeScript
@@ -78,18 +96,22 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
+pnpm build-storybook
 ```
 
 ## Repository structure
 
 ```text
 src/
-├── app/                     Next.js App Router
-├── components/              Level 1 UI
+├── app/[locale]/            Locale-aware App Router (login, test-xlm)
+├── components/              Atomic Design: atoms / molecules / organisms / templates
 ├── config/                  Product-specific terminology
-├── features/payment/        Input schema and tests
-└── lib/stellar/             Freighter, Horizon, and payment integration
-docs/                        Level 1 scope and roadmap
+├── features/                payment (schema + tests), test-xlm, auth (login prototype)
+├── i18n/                    Dictionaries and locale routing (en / id / zh-CN)
+├── lib/stellar/             Freighter, Horizon, and payment integration
+└── stories/                 Storybook helpers
+.storybook/                  Storybook configuration
+docs/                        Level 1 scope, roadmap, and phase notes
 public/screenshots/          Submission evidence
 ```
 
