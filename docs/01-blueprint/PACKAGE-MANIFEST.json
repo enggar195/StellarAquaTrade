@@ -1,0 +1,44 @@
+{
+  "package": "AquaTrade Complete Blueprint",
+  "version": "0.4",
+  "root_folder": "docs/01-blueprint",
+  "markdown_files": 23,
+  "supported_locales": [
+    "en",
+    "id",
+    "zh-CN"
+  ],
+  "white_belt_menu": {
+    "en": "Test XLM",
+    "id": "Uji XLM",
+    "zh-CN": "XLM 测试"
+  },
+  "white_belt_route_pattern": "/{locale}/test-xlm",
+  "white_belt_public": true,
+  "recommended_path": "aquatrade-fe/docs/01-blueprint",
+  "files": [
+    "CLAUDE-START-HERE.md",
+    "README.md",
+    "architecture/05-DATA-INTEGRATION.md",
+    "architecture/06-KPI-DASHBOARD.md",
+    "discovery/00-RAW-SOURCE-DATA-CLEANED.md",
+    "discovery/01-SOLUTION-BRIEF.md",
+    "discovery/02-MODULE-MAP.md",
+    "discovery/03-FUNCTION-GROUPS.md",
+    "discovery/04-ROLES-PERMISSIONS.md",
+    "discovery/07-GLOSSARY.md",
+    "handoff/16-CLAUDE-DESIGN-HANDOFF.md",
+    "handoff/17-DEVELOPER-HANDOFF.md",
+    "handoff/18-IMPLEMENTATION-STANDARDS.md",
+    "handoff/19-USER-VALIDATION-PLAN.md",
+    "handoff/20-DECISION-LOG.md",
+    "ux-design/08-UX-STRATEGY.md",
+    "ux-design/09-INFORMATION-ARCHITECTURE.md",
+    "ux-design/10-USER-FLOWS.md",
+    "ux-design/11-PAGE-INVENTORY.md",
+    "ux-design/12-SCREEN-REQUIREMENTS.md",
+    "ux-design/13-DESIGN-SYSTEM.md",
+    "ux-pilot/14-UX-PILOT-MASTER-PROMPT.md",
+    "ux-pilot/15-UX-PILOT-SCREEN-PROMPTS.md"
+  ]
+}
