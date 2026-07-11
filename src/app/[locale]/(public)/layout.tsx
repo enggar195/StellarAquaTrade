@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
 
-import { PublicHeader } from "@/components/organisms/public-header";
 import { isLocale } from "@/i18n/config";
-import { getDictionary } from "@/i18n/get-dictionary";
 
+/**
+ * Public route group. Locale validation only — individual public pages own
+ * their chrome (e.g. Test XLM renders the navigation header; Login is a
+ * full-bleed split with its own in-page language switcher).
+ */
 export default async function PublicLayout({
   children,
   params,
@@ -12,17 +15,8 @@ export default async function PublicLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
   if (!isLocale(locale)) {
     notFound();
   }
-
-  const dict = getDictionary(locale);
-
-  return (
-    <div className="public-shell">
-      <PublicHeader locale={locale} dict={dict} />
-      {children}
-    </div>
-  );
+  return children;
 }

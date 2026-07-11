@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-AquaTrade is currently implementing Stellar White Belt Level 1. The active public application page is `/{locale}/test-xlm`.
+AquaTrade is currently implementing Stellar White Belt Level 1. The default landing route is `/{locale}/login` (a frontend UI prototype — no real authentication). The active public White Belt application page is `/{locale}/test-xlm`, which remains publicly accessible and is not gated behind Login.
 
 ## Folder Roles
 

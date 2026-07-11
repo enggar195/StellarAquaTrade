@@ -46,12 +46,12 @@ describe("localized Test XLM navigation labels", () => {
 });
 
 describe("root redirect", () => {
-  it("targets /en/test-xlm", () => {
-    expect(rootRedirectPath).toBe("/en/test-xlm");
+  it("targets the default-locale Login landing", () => {
+    expect(rootRedirectPath).toBe("/en/login");
   });
 
-  it("never targets a login route", () => {
-    expect(rootRedirectPath).not.toContain("login");
+  it("uses the default locale", () => {
+    expect(rootRedirectPath.startsWith("/en/")).toBe(true);
   });
 });
 

@@ -1,7 +1,12 @@
 import { defaultLocale, isLocale, type Locale } from "./config";
 
+/** The default landing route for a given locale (frontend Login prototype). */
+export function localeLandingPath(locale: Locale): string {
+  return `/${locale}/login`;
+}
+
 /** Where the root path ("/") sends visitors. */
-export const rootRedirectPath = `/${defaultLocale}/test-xlm` as const;
+export const rootRedirectPath = localeLandingPath(defaultLocale);
 
 /**
  * Rewrite a pathname to a different locale while preserving the rest of the

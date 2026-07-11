@@ -14,3 +14,5 @@ coverage/
 .bootstrap-backup/
 
 certificates
+# storybook
+storybook-static
