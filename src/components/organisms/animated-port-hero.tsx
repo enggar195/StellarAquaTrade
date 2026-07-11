@@ -171,13 +171,14 @@ export function AnimatedPortHero({ className }: AnimatedPortHeroProps) {
         <circle cx="120" cy="96" r="22" fill="#e8f7fd" opacity="0.9" />
         <circle cx="128" cy="90" r="22" fill="url(#portSky)" opacity="0.5" />
 
-        {/* Cargo aircraft crossing the upper sky (air freight = export / import). */}
-        <g opacity="0.92" transform="translate(280,120)">
-          <g transform="scale(1.15)">
+        {/* Cargo aircraft crossing the sky (air freight = export / import).
+            Kept within the vertically-cropped visible band, above the ship. */}
+        <g opacity="0.96" transform="translate(250,290)">
+          <g transform="scale(1.55)">
             {/* condensation trail behind the tail */}
             <path d="M-6,-1.6 L-82,-0.7 L-82,0.7 L-6,1.6 Z" fill="url(#planeTrail)" />
             {/* fuselage (nose to the right) */}
-            <path d="M4,-3 L40,-3 Q50,-3 51,0 Q50,3 40,3 L4,3 Q-3,2.4 -3,0 Q-3,-2.4 4,-3 Z" fill="#c3d2e2" />
+            <path d="M4,-3 L40,-3 Q50,-3 51,0 Q50,3 40,3 L4,3 Q-3,2.4 -3,0 Q-3,-2.4 4,-3 Z" fill="#d8e4f2" />
             <path d="M40,-3 Q50,-3 51,0 Q50,3 40,3 Z" fill="#e8f0f8" />
             {/* swept wings */}
             <path d="M30,-1.6 L9,-15 L19,-1.6 Z" fill="#9aadc2" />
@@ -203,7 +204,7 @@ export function AnimatedPortHero({ className }: AnimatedPortHeroProps) {
             </circle>
           </g>
           {animated && (
-            <animateTransform attributeName="transform" type="translate" values="-90 168; 610 92" dur="30s" repeatCount="indefinite" />
+            <animateTransform attributeName="transform" type="translate" values="-120 322; 640 250" dur="28s" repeatCount="indefinite" />
           )}
         </g>
 
