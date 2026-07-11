@@ -10,6 +10,37 @@ import { zhCN } from "./dictionaries/zh-CN";
  */
 export interface Dictionary {
   navigation: {
+    /** Section group labels. */
+    sections: {
+      primary: string;
+      supply: string;
+      trade: string;
+      operations: string;
+      management: string;
+      configuration: string;
+      monitoring: string;
+      web3: string;
+      system: string;
+    };
+    dashboard: string;
+    operationsDashboard: string;
+    fishCatalog: string;
+    fishBatches: string;
+    privateCatalog: string;
+    rfqs: string;
+    quotations: string;
+    tradeOrders: string;
+    packing: string;
+    shipments: string;
+    arrivalInspection: string;
+    claims: string;
+    companies: string;
+    documentVerification: string;
+    masterData: string;
+    systemConfiguration: string;
+    auditMonitoring: string;
+    notifications: string;
+    companyProfile: string;
     testXlm: string;
   };
   languageSwitcher: {
@@ -19,6 +50,36 @@ export interface Dictionary {
   common: {
     /** aria template, "{title}" is replaced with the card title. */
     explain: string;
+  };
+  dashboard: {
+    prototypeLabel: string;
+    workspaceName: string;
+    roleLabel: string;
+    userName: string;
+    userRole: string;
+    pageTitle: string;
+    breadcrumbHome: string;
+    bannerTitle: string;
+    bannerBody: string;
+    comingSoon: string;
+    comingSoonTooltip: string;
+    collapseSidebar: string;
+    expandSidebar: string;
+    openMenu: string;
+    closeMenu: string;
+    notifications: string;
+    notificationsNote: string;
+    companySwitcher: string;
+    userMenu: string;
+    shellStatus: { title: string; body: string; tooltip: string };
+    availableNow: { title: string; tooltip: string; items: string[] };
+    comingNext: { title: string; tooltip: string; items: string[] };
+  };
+  accessibility: {
+    primaryNav: string;
+    sidebar: string;
+    mobileMenu: string;
+    breadcrumb: string;
   };
   auth: {
     eyebrow: string;
