@@ -146,6 +146,10 @@ export function AnimatedPortHero({ className }: AnimatedPortHeroProps) {
             <stop offset="0%" stopColor="#0b2536" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#0b2536" stopOpacity="0" />
           </linearGradient>
+          <linearGradient id="planeTrail" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#dbe7f2" stopOpacity="0" />
+            <stop offset="100%" stopColor="#dbe7f2" stopOpacity="0.5" />
+          </linearGradient>
         </defs>
 
         {/* Sky + sea */}
@@ -167,22 +171,40 @@ export function AnimatedPortHero({ className }: AnimatedPortHeroProps) {
         <circle cx="120" cy="96" r="22" fill="#e8f7fd" opacity="0.9" />
         <circle cx="128" cy="90" r="22" fill="url(#portSky)" opacity="0.5" />
 
-        {/* Cargo aircraft crossing the sky */}
-        <g opacity="0.85">
-          <g transform="translate(0,0)">
-            <g transform="translate(-30,150) scale(0.9)">
-              <path d="M0,0 L34,3 L44,0 L34,-3 Z" fill="#9fb2c4" />
-              <path d="M14,0 L2,-11 L10,-1 Z" fill="#7c8ea3" />
-              <path d="M14,0 L2,11 L10,1 Z" fill="#7c8ea3" />
-              <path d="M32,-2 L28,-8 L33,-2 Z" fill="#7c8ea3" />
-              <circle cx="2" cy="0" r="1.6" fill="#ff6174">
-                {animated && <animate attributeName="opacity" values="1;0.1;1" dur="1.4s" repeatCount="indefinite" />}
-              </circle>
-            </g>
-            {animated && (
-              <animateTransform attributeName="transform" type="translate" values="-60 0; 620 -46" dur="26s" repeatCount="indefinite" />
-            )}
+        {/* Cargo aircraft crossing the upper sky (air freight = export / import). */}
+        <g opacity="0.92" transform="translate(280,120)">
+          <g transform="scale(1.15)">
+            {/* condensation trail behind the tail */}
+            <path d="M-6,-1.6 L-82,-0.7 L-82,0.7 L-6,1.6 Z" fill="url(#planeTrail)" />
+            {/* fuselage (nose to the right) */}
+            <path d="M4,-3 L40,-3 Q50,-3 51,0 Q50,3 40,3 L4,3 Q-3,2.4 -3,0 Q-3,-2.4 4,-3 Z" fill="#c3d2e2" />
+            <path d="M40,-3 Q50,-3 51,0 Q50,3 40,3 Z" fill="#e8f0f8" />
+            {/* swept wings */}
+            <path d="M30,-1.6 L9,-15 L19,-1.6 Z" fill="#9aadc2" />
+            <path d="M30,1.6 L9,15 L19,1.6 Z" fill="#8497ab" />
+            {/* engine pods */}
+            <ellipse cx="20" cy="-8" rx="3" ry="1.5" fill="#6f8298" />
+            <ellipse cx="20" cy="8" rx="3" ry="1.5" fill="#6f8298" />
+            {/* tail fin + horizontal stabilisers */}
+            <path d="M2,-2.4 L-5,-12 L7,-2.4 Z" fill="#9aadc2" />
+            <path d="M1,-1 L-7,-5 L1,-1 Z" fill="#8497ab" />
+            <path d="M1,1 L-7,5 L1,1 Z" fill="#8497ab" />
+            {/* cargo-deck window line */}
+            <line x1="10" y1="-0.4" x2="39" y2="-0.4" stroke="#33465a" strokeWidth="0.8" opacity="0.5" strokeDasharray="1 2.4" />
+            {/* navigation lights: red + green wingtips, white tail strobe */}
+            <circle cx="9" cy="-15" r="1.5" fill="#ff5a6e">
+              {animated && <animate attributeName="opacity" values="1;0.15;1" dur="1.3s" repeatCount="indefinite" />}
+            </circle>
+            <circle cx="9" cy="15" r="1.5" fill="#4ade80">
+              {animated && <animate attributeName="opacity" values="0.15;1;0.15" dur="1.3s" repeatCount="indefinite" />}
+            </circle>
+            <circle cx="-5" cy="-12" r="1.2" fill="#ffffff">
+              {animated && <animate attributeName="opacity" values="1;0;1;0;1" dur="2.2s" repeatCount="indefinite" />}
+            </circle>
           </g>
+          {animated && (
+            <animateTransform attributeName="transform" type="translate" values="-90 168; 610 92" dur="30s" repeatCount="indefinite" />
+          )}
         </g>
 
         {/* Under-surface light rays */}
