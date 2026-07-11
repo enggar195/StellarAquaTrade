@@ -1,5 +1,7 @@
-import { LevelOneDapp } from "@/components/level-one-dapp";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return <LevelOneDapp />;
+import { rootRedirectPath } from "@/i18n/locale-path";
+
+export default function RootPage() {
+  redirect(rootRedirectPath);
 }

@@ -42,7 +42,7 @@ function shortenAddress(address: string): string {
   return `${address.slice(0, 7)}…${address.slice(-7)}`;
 }
 
-export function LevelOneDapp() {
+export function TestXlmPage() {
   const [address, setAddress] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
   const [networkName, setNetworkName] = useState("TESTNET");
