@@ -1572,3 +1572,45 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
   .kpi-card:hover, .chart-card:hover { transform: none !important; }
   .chart-body, .help-tooltip-pop { animation: none !important; }
 }
+
+/* ============ Exporter Dashboard ============ */
+/* Horizontal bar chart (flat, no decorative gradients) */
+.hbar-chart { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; width: 100%; }
+.hbar-row { display: grid; grid-template-columns: 74px 1fr 62px; align-items: center; gap: 12px; font-size: 12.5px; }
+.hbar-label { color: var(--text-soft); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hbar-track { height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); overflow: hidden; }
+.hbar-fill { display: block; height: 100%; border-radius: 6px; background: var(--aqua-500); }
+.hbar-value { text-align: right; color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* Stacked bar chart */
+.sbar-chart { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+.sbar-track { display: flex; width: 100%; height: 26px; border-radius: 8px; overflow: hidden; background: rgba(255, 255, 255, 0.05); }
+.sbar-seg { height: 100%; }
+.sbar-values { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; }
+.sbar-values li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-soft); }
+.sbar-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.sbar-name { flex: 1; }
+.sbar-values strong { color: var(--text); font-variant-numeric: tabular-nums; }
+.sbar-total { margin: 0; font-size: 12px; color: var(--muted); font-weight: 600; }
+
+/* Readiness progress */
+.readiness { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+.readiness-bar { width: 64px; height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); overflow: hidden; flex: none; }
+.readiness-fill { display: block; height: 100%; border-radius: 4px; background: currentColor; }
+.readiness-value { color: var(--text); font-variant-numeric: tabular-nums; }
+.readiness.tone-ready { color: #7ff0d8; }
+.readiness.tone-ok { color: var(--aqua-300); }
+.readiness.tone-risk { color: #f6b84a; }
+
+/* Blocking item */
+.blocker { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.blocker svg { flex: none; }
+.blocker.warn { color: #f6b84a; }
+.blocker.ok { color: #7ff0d8; }
+
+/* Extra ActionStatus tones */
+.action-status.tone-risk { color: var(--danger); background: rgba(251, 113, 133, 0.12); border-color: rgba(251, 113, 133, 0.32); }
+.action-status.tone-ready { color: #7ff0d8; background: rgba(45, 212, 191, 0.12); border-color: rgba(45, 212, 191, 0.32); }
+
+/* Test XLM shortcut */
+.exporter-testxlm { margin: 4px 0 0; text-align: center; font-size: 13.5px; }

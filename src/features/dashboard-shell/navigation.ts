@@ -35,7 +35,13 @@ export type NavLabelKey = Exclude<keyof Dictionary["navigation"], "sections">;
 export type SectionKey = keyof Dictionary["navigation"]["sections"];
 
 /** Active items link to an existing route; coming-soon items do not navigate. */
-export type NavRoute = "dashboard" | "test-xlm";
+export type NavRoute = "dashboard" | "exporter-dashboard" | "test-xlm";
+
+const ROUTE_PATHS: Record<NavRoute, string> = {
+  dashboard: "dashboard",
+  "exporter-dashboard": "exporter/dashboard",
+  "test-xlm": "test-xlm",
+};
 
 export interface NavItem {
   labelKey: NavLabelKey;
@@ -89,7 +95,7 @@ export const NAVIGATION: Record<Role, NavSection[]> = {
     { sectionKey: "system", items: [soon("notifications", "notification"), soon("companyProfile", "company")] },
   ],
   exporter: [
-    { sectionKey: "primary", items: [active("dashboard", "dashboard", "dashboard")] },
+    { sectionKey: "primary", items: [active("dashboard", "dashboard", "exporter-dashboard")] },
     { sectionKey: "supply", items: [soon("fishBatches", "batch"), soon("privateCatalog", "catalog")] },
     {
       sectionKey: "trade",
@@ -122,5 +128,5 @@ export const NAVIGATION: Record<Role, NavSection[]> = {
 /** Resolve an item's locale-aware href, or null for coming-soon items. */
 export function navItemHref(item: NavItem, locale: Locale): string | null {
   if (item.status !== "active" || !item.route) return null;
-  return `/${locale}/${item.route}`;
+  return `/${locale}/${ROUTE_PATHS[item.route]}`;
 }

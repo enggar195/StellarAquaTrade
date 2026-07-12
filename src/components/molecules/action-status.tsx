@@ -1,4 +1,4 @@
-export type ActionStatusTone = "pending" | "funding" | "info" | "negotiating";
+export type ActionStatusTone = "pending" | "funding" | "info" | "negotiating" | "risk" | "ready";
 
 export interface ActionStatusProps {
   label: string;

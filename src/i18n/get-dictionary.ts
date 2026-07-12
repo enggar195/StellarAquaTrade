@@ -208,6 +208,67 @@ export interface Dictionary {
     emailInvalid: string;
     passwordRequired: string;
   };
+  exporterDashboard: {
+    title: string;
+    subtitle: string;
+    createFishBatch: string;
+    prototypeBanner: { title: string; body: string };
+    operationalAlert: { title: string; body: string; action: string };
+    kpi: {
+      availableBatches: { label: string; support: string; tooltip: string };
+      newRfqs: { label: string; support: string; tooltip: string };
+      ordersInPreparation: { label: string; support: string; tooltip: string };
+      documentsMissing: { label: string; support: string; tooltip: string };
+      fundsSecured: { label: string; support: string; tooltip: string; badge: string };
+      claimsAwaitingResponse: { label: string; support: string; tooltip: string };
+    };
+    units: { fish: string; xlm: string };
+    charts: {
+      availableQuantity: { title: string; tooltip: string; summary: string; source: string; period: string };
+      preparationWorkload: { title: string; tooltip: string; summary: string; source: string; period: string; total: string };
+    };
+    species: { betta: string; guppy: string; discus: string; koi: string; arowana: string };
+    stages: { allocation: string; healthDocuments: string; packing: string; ready: string };
+    rfqTable: {
+      title: string;
+      tooltip: string;
+      empty: string;
+      headers: {
+        rfqId: string;
+        buyer: string;
+        destination: string;
+        requestedFish: string;
+        quantity: string;
+        responseDue: string;
+        status: string;
+        action: string;
+      };
+    };
+    rfqStatuses: { new: string; reviewing: string; clarificationNeeded: string };
+    shipmentTable: {
+      title: string;
+      tooltip: string;
+      empty: string;
+      readinessLabel: string;
+      blockingNone: string;
+      blockingDocuments: string;
+      packingQc: string;
+      headers: {
+        tradeId: string;
+        buyer: string;
+        route: string;
+        plannedDeparture: string;
+        readiness: string;
+        blockingItem: string;
+        status: string;
+        action: string;
+      };
+    };
+    shipmentStatuses: { atRisk: string; preparing: string; ready: string };
+    rowActions: { createQuote: string; review: string };
+    relative: { today: string; tomorrow: string };
+    openTestXlm: string;
+  };
 }
 
 const dictionaries: Record<Locale, Dictionary> = {
