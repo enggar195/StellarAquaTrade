@@ -138,6 +138,7 @@ export const id: Dictionary = {
       empty: "Tidak ada data untuk periode ini.",
       error: "Data grafik tidak dapat dimuat.",
       period6m: "6 bulan terakhir",
+      currentStatus: "Status saat ini",
       tradeActivity: {
         title: "Aktivitas Perdagangan",
         tooltip: "Jumlah bulanan RFQ yang dibuat dan perdagangan yang dikonfirmasi selama enam bulan terakhir. Data contoh prototipe.",

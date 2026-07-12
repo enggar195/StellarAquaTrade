@@ -1,5 +1,6 @@
 "use client";
 
+import { NavIcon } from "@/components/atoms/nav-icon";
 import { ComingSoonAction } from "@/components/molecules/coming-soon-action";
 import { DonutChart } from "@/components/molecules/donut-chart";
 import { LineChart } from "@/components/molecules/line-chart";
@@ -10,11 +11,13 @@ import { KpiCard } from "@/components/organisms/kpi-card";
 import { PrototypeDataBanner } from "@/components/organisms/prototype-data-banner";
 import { RecentTransactionTable } from "@/components/organisms/recent-transaction-table";
 import { DashboardContentLayout } from "@/components/templates/dashboard-content-layout";
+import type { NavIconName } from "@/features/dashboard-shell/navigation";
 import {
   BUYER_KPIS,
   SHIPMENT_STATUS,
   SHIPMENT_TOTAL,
   TRADE_ACTIVITY,
+  type KpiId,
   type ShipmentStatusKey,
 } from "@/features/buyer-dashboard/data/buyer-dashboard.mock";
 import { useI18n } from "@/i18n/i18n-context";
@@ -25,6 +28,14 @@ const SHIPMENT_COLORS: Record<ShipmentStatusKey, string> = {
   inTransit: "#34d3ee",
   arrived: "#2dd4bf",
   delayed: "#fb7185",
+};
+const KPI_ICONS: Record<KpiId, NavIconName> = {
+  activeRfqs: "rfq",
+  awaitingFunding: "quotation",
+  shipmentsInTransit: "shipment",
+  arrivalInspectionDue: "inspection",
+  openClaims: "claim",
+  tradeSpend: "xlm",
 };
 
 interface LegendEntry {
@@ -84,9 +95,10 @@ export function BuyerDashboardPage() {
               label={meta.label}
               tooltip={meta.tooltip}
               value={kpi.value}
-              unit={kpi.unitKey ? b.units[kpi.unitKey] : undefined}
+              unit={kpi.id === "tradeSpend" ? b.units.xlm : kpi.unitKey ? b.units[kpi.unitKey] : undefined}
               support={meta.support}
               badge={kpi.id === "tradeSpend" ? b.kpi.tradeSpend.badge : undefined}
+              icon={<NavIcon name={KPI_ICONS[kpi.id]} />}
             />
           );
         })}
@@ -110,6 +122,7 @@ export function BuyerDashboardPage() {
             tooltip={b.charts.shipmentStatus.tooltip}
             source={b.charts.shipmentStatus.source}
             summary={b.charts.shipmentStatus.summary}
+            period={b.charts.currentStatus}
             legend={<ChartLegend items={shipmentSegments.map((s) => ({ label: `${s.label} · ${s.value}`, color: s.color }))} />}
           >
             <DonutChart segments={shipmentSegments} total={SHIPMENT_TOTAL} centerLabel={b.charts.shipmentStatus.totalLabel} />

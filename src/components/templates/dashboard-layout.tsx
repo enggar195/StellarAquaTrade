@@ -5,8 +5,8 @@ import { useState, type ReactNode } from "react";
 import { AppSidebar } from "@/components/organisms/app-sidebar";
 import { AppTopbar } from "@/components/organisms/app-topbar";
 import type { Crumb } from "@/components/organisms/breadcrumbs";
-import { DashboardAtmosphere } from "@/components/organisms/dashboard-atmosphere";
 import { MobileNavigationDrawer } from "@/components/organisms/mobile-navigation-drawer";
+import { OceanAmbienceBackground } from "@/components/organisms/ocean-ambience-background";
 import type { Role } from "@/features/dashboard-shell/navigation";
 
 export interface DashboardLayoutProps {
@@ -26,7 +26,7 @@ export function DashboardLayout({ role, breadcrumbs, children }: DashboardLayout
 
   return (
     <>
-      <DashboardAtmosphere />
+      <OceanAmbienceBackground intensity="balanced" showCaustics showMist />
       <div className={`dashboard-shell${collapsed ? " sidebar-collapsed" : ""}`}>
         <AppSidebar role={role} collapsed={collapsed} onToggleCollapse={() => setCollapsed((value) => !value)} />
 

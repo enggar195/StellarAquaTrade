@@ -138,6 +138,7 @@ export const en: Dictionary = {
       empty: "No data for this period.",
       error: "Chart data could not be loaded.",
       period6m: "Last 6 months",
+      currentStatus: "Current status",
       tradeActivity: {
         title: "Trade Activity",
         tooltip: "Monthly counts of RFQs created and trades confirmed over the last six months. Prototype sample data.",

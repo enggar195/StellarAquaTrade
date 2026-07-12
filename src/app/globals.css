@@ -782,14 +782,24 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
   padding: 22px;
   border-radius: 18px;
   overflow: hidden;
-  background: linear-gradient(158deg, rgba(18, 44, 64, 0.72) 0%, rgba(9, 26, 42, 0.86) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(158deg, rgba(13, 43, 63, 0.70) 0%, rgba(8, 29, 44, 0.82) 100%);
+  border: 1px solid rgba(125, 227, 244, 0.13);
   box-shadow:
     0 22px 48px -22px rgba(0, 0, 0, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.10),
     inset 0 0 0 1px rgba(120, 190, 230, 0.03);
   -webkit-backdrop-filter: blur(22px) saturate(140%);
   backdrop-filter: blur(22px) saturate(140%);
+}
+/* Denser surface for data-heavy table cards — keeps rows readable. */
+.table-card { background: linear-gradient(158deg, rgba(9, 29, 45, 0.84) 0%, rgba(7, 22, 36, 0.90) 100%); }
+/* Restrained aqua edge glow only while a control inside the card is focused. */
+.glass-card:focus-within {
+  border-color: rgba(52, 211, 238, 0.30);
+  box-shadow:
+    0 22px 48px -22px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(52, 211, 238, 0.16);
 }
 /* Soft diagonal inner highlight — restrained top-left sheen. */
 .glass-card::before {
@@ -1097,15 +1107,15 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 .shell-main { display: flex; flex-direction: column; min-height: 100vh; min-width: 0; }
 .app-topbar {
   position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  display: flex; align-items: center; justify-content: flex-start; gap: 12px;
   height: var(--topbar-h); padding: 0 clamp(14px, 2vw, 24px);
   background: rgba(6, 16, 26, 0.72);
   border-bottom: 1px solid var(--glass-border-soft);
   -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px);
 }
-.topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.topbar-right { display: flex; align-items: center; gap: 10px; }
-.mobile-menu-trigger { display: none; width: 38px; height: 38px; border-radius: 10px; color: var(--text-soft); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); }
+.topbar-breadcrumbs { display: flex; align-items: center; min-width: 0; }
+.topbar-spacer { flex: 1 1 auto; }
+.mobile-menu-trigger { display: none; flex: none; width: 42px; height: 42px; border-radius: 10px; color: var(--text-soft); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); }
 
 .breadcrumbs ol { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; min-width: 0; }
 .breadcrumb-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); white-space: nowrap; }
@@ -1188,10 +1198,45 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 @media (min-width: 1024px) {
   .mobile-drawer-root { display: none; }
 }
-@media (max-width: 560px) {
+
+/* ---- Topbar: progressively declutter, then a clean two-row layout ---- */
+/* Free space: the page title already names the view, so drop the breadcrumb. */
+@media (max-width: 640px) {
+  .topbar-breadcrumbs { display: none; }
   .topbar-identity.company { display: none; }
-  .app-topbar { gap: 8px; }
-  .topbar-right { gap: 7px; }
+}
+/* Very small screens: burger-first, two rows, compact controls, no overflow. */
+@media (max-width: 480px) {
+  .app-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--topbar-h);
+    padding: 8px 12px;
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+  .mobile-menu-trigger { order: 0; }
+  .topbar-spacer { order: 1; }
+  .topbar-lang { order: 2; }
+  .topbar-identity.user { order: 3; }
+  /* Compact network badge drops to its own second row. */
+  .topbar-network { order: 10; flex: 0 0 100%; display: flex; justify-content: flex-start; }
+  .network-badge-prefix { display: none; }
+  /* Compact language switcher: globe + caret only. */
+  .ls-trigger > span { display: none; }
+  .ls-trigger { padding: 0 9px; }
+  /* Hide non-critical topbar controls on very small screens. */
+  .app-topbar > .topbar-action-wrap,
+  .app-topbar > .topbar-sep { display: none; }
+}
+
+/* ---- Narrow screens: stack header + banner actions below their text ---- */
+@media (max-width: 600px) {
+  .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .page-header-actions { width: 100%; }
+  .critical-banner { flex-wrap: wrap; }
+  .critical-banner .critical-text { flex: 1 1 auto; min-width: 0; }
+  .critical-banner .coming-soon-action { flex: 1 0 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1328,61 +1373,202 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
   .chart-body { min-height: 0; }
 }
 
-/* ============ Dashboard oceanic atmosphere ============ */
-.dash-atmosphere {
+/* ============ Ocean ambience background (dashboard) ============ */
+.ocean-ambience {
   position: fixed;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(180deg, #06182a 0%, #051422 48%, #030b15 100%);
+  user-select: none;
+  -webkit-user-select: none;
 }
-.dash-glow { position: absolute; border-radius: 50%; filter: blur(96px); opacity: 0.5; }
-.dash-glow-cyan {
-  width: 46rem; height: 46rem; top: -14rem; right: -12rem;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.16), transparent 66%);
-  animation: dash-drift-a 46s ease-in-out infinite;
-}
-.dash-glow-indigo {
-  width: 42rem; height: 42rem; bottom: -16rem; left: -10rem;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 66%);
-  animation: dash-drift-b 56s ease-in-out infinite;
-}
-@keyframes dash-drift-a { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-40px, 40px); } }
-@keyframes dash-drift-b { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(46px, -34px); } }
+.ocean-ambience > * { position: absolute; inset: 0; }
 
-.dash-mist {
-  position: absolute; inset: 0;
+/* base ocean gradient — brighter toward the upper-right, never pure black */
+.ocean-base {
   background:
-    radial-gradient(900px 520px at 72% 12%, rgba(45, 120, 160, 0.10), transparent 60%),
-    radial-gradient(760px 520px at 16% 82%, rgba(18, 58, 88, 0.14), transparent 62%);
-}
-.dash-grid {
-  position: absolute; inset: 0; opacity: 0.7;
-  background-image:
-    linear-gradient(rgba(120, 180, 220, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 180, 220, 0.045) 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(1200px 720px at 50% 24%, #000 0%, rgba(0, 0, 0, 0.5) 46%, transparent 78%);
-  mask-image: radial-gradient(1200px 720px at 50% 24%, #000 0%, rgba(0, 0, 0, 0.5) 46%, transparent 78%);
+    radial-gradient(120% 100% at 82% 6%, #0a2236 0%, rgba(10, 34, 54, 0) 55%),
+    linear-gradient(158deg, #071827 0%, #04101a 42%, #03111f 68%, #020817 100%);
 }
 
-.dash-bubbles { position: absolute; inset: 0; }
-.dash-bubble {
-  position: absolute; bottom: -40px; border-radius: 50%;
-  background: radial-gradient(circle at 32% 30%, rgba(190, 240, 252, 0.16), rgba(34, 211, 238, 0.05) 60%, transparent 72%);
-  border: 1px solid rgba(150, 220, 240, 0.06);
-  animation-name: dash-rise;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+/* radial cyan / indigo / teal glows */
+.ocean-glow { position: absolute; border-radius: 50%; }
+.ocean-glow-cyan { width: 52rem; height: 52rem; top: -16rem; right: -14rem; background: radial-gradient(circle, rgba(34, 211, 238, 0.20), transparent 64%); filter: blur(160px); animation: ocean-drift-a 40s ease-in-out infinite; }
+.ocean-glow-indigo { width: 46rem; height: 46rem; top: -20rem; left: 34%; background: radial-gradient(circle, rgba(99, 102, 241, 0.18), transparent 64%); filter: blur(200px); animation: ocean-drift-b 52s ease-in-out infinite; }
+.ocean-glow-teal { width: 44rem; height: 44rem; bottom: -18rem; left: -10rem; background: radial-gradient(circle, rgba(45, 212, 191, 0.16), transparent 64%); filter: blur(180px); animation: ocean-drift-a 46s ease-in-out infinite reverse; }
+@keyframes ocean-drift-a { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-38px, 40px); } }
+@keyframes ocean-drift-b { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(44px, -32px); } }
+
+/* underwater caustics — organic soft light pools (not a technical grid) */
+.ocean-caustics { mix-blend-mode: screen; }
+.ocean-caustic { position: absolute; border-radius: 50%; filter: blur(72px); animation: ocean-caustic-drift 34s ease-in-out infinite; }
+.ocean-caustic-1 { width: 30rem; height: 22rem; top: 1%; right: 12%; background: radial-gradient(circle, rgba(125, 227, 244, 0.16), transparent 70%); }
+.ocean-caustic-2 { width: 24rem; height: 20rem; top: 14%; right: 40%; background: radial-gradient(circle, rgba(52, 211, 238, 0.13), transparent 70%); animation-duration: 42s; animation-delay: -8s; }
+.ocean-caustic-3 { width: 26rem; height: 18rem; top: 5%; left: 20%; background: radial-gradient(circle, rgba(99, 102, 241, 0.11), transparent 70%); animation-duration: 48s; animation-delay: -16s; }
+@keyframes ocean-caustic-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.82; }
+  50% { transform: translate(2%, 1.5%) scale(1.08); opacity: 1; }
 }
-@keyframes dash-rise {
-  0% { transform: translateY(0) scale(0.7); opacity: 0; }
-  14% { opacity: 0.45; }
-  80% { opacity: 0.32; }
-  100% { transform: translateY(-108vh) scale(1); opacity: 0; }
+
+/* soft underwater light shafts from the upper-right */
+.ocean-shafts { mix-blend-mode: screen; }
+.ocean-shaft {
+  position: absolute; top: -20%; height: 150%; width: 12rem;
+  background: linear-gradient(180deg, rgba(125, 227, 244, 0.10), transparent 72%);
+  transform: rotate(18deg); transform-origin: top right;
+  filter: blur(26px);
+  animation: ocean-shaft-sway 26s ease-in-out infinite;
+}
+.ocean-shaft-1 { right: 6%; }
+.ocean-shaft-2 { right: 18%; width: 8rem; opacity: 0.72; animation-duration: 32s; animation-delay: -10s; }
+.ocean-shaft-3 { right: 30%; width: 6rem; opacity: 0.5; animation-duration: 38s; animation-delay: -18s; }
+@keyframes ocean-shaft-sway { 0%, 100% { transform: rotate(18deg) translateX(0); } 50% { transform: rotate(16deg) translateX(-1.5%); } }
+
+/* signature detail — a very faint, slow whale silhouette in open background */
+.ocean-silhouette { color: #22506e; opacity: 0.06; }
+.ocean-silhouette svg { position: absolute; width: 22rem; height: auto; bottom: 22%; left: 6%; animation: ocean-silhouette-swim 96s linear infinite; }
+@keyframes ocean-silhouette-swim { 0% { transform: translateX(-25%); } 100% { transform: translateX(150%); } }
+
+/* bubble field — clearly visible, slow, low opacity, behind content */
+.ocean-bubble {
+  position: absolute; bottom: -32px; left: var(--b-left);
+  width: var(--b-size); height: var(--b-size); border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.28), rgba(125, 227, 244, 0.10) 55%, transparent 72%);
+  border: 1px solid rgba(160, 230, 245, 0.35);
+  box-shadow: 0 0 8px rgba(52, 211, 238, 0.18), inset 0 0 4px rgba(190, 240, 252, 0.22);
+  opacity: var(--b-opacity);
+  filter: blur(var(--b-blur));
+  animation: ocean-bubble-rise var(--b-dur) linear var(--b-delay) infinite;
+  will-change: transform, opacity;
+}
+@keyframes ocean-bubble-rise {
+  0% { transform: translate(0, 0) scale(0.65); opacity: 0; }
+  12% { opacity: var(--b-opacity); }
+  85% { opacity: calc(var(--b-opacity) * 0.75); }
+  100% { transform: translate(var(--b-drift), -110vh) scale(1); opacity: 0; }
+}
+
+/* subtle teal mist / depth near the lower viewport */
+.ocean-mist {
+  background:
+    radial-gradient(130% 62% at 50% 122%, rgba(20, 74, 92, 0.55), transparent 58%),
+    radial-gradient(80% 46% at 20% 106%, rgba(14, 54, 68, 0.4), transparent 60%);
+  filter: blur(4px);
+}
+
+/* subtle secondary grid texture */
+.ocean-grid {
+  opacity: 0.6;
+  background-image:
+    linear-gradient(rgba(125, 190, 225, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 190, 225, 0.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: radial-gradient(1300px 760px at 62% 20%, #000 0%, rgba(0, 0, 0, 0.4) 50%, transparent 80%);
+  mask-image: radial-gradient(1300px 760px at 62% 20%, #000 0%, rgba(0, 0, 0, 0.4) 50%, transparent 80%);
+}
+
+/* intensity scaling */
+.ocean-ambience.intensity-subtle .ocean-glows,
+.ocean-ambience.intensity-subtle .ocean-caustics,
+.ocean-ambience.intensity-subtle .ocean-bubbles { opacity: 0.68; }
+.ocean-ambience.intensity-immersive .ocean-caustics { filter: saturate(1.25); }
+
+/* responsive bubble counts (desktop ~24 / tablet ~16 / mobile ~10) */
+@media (max-width: 1023px) { .ocean-bubble:nth-child(n + 17) { display: none; } }
+@media (max-width: 640px) {
+  .ocean-bubble:nth-child(n + 11) { display: none; }
+  .ocean-bubble { width: min(var(--b-size), 16px); height: min(var(--b-size), 16px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dash-glow, .dash-bubble { animation: none !important; }
+  .ocean-glow, .ocean-caustic, .ocean-shaft, .ocean-silhouette svg { animation: none !important; }
+  .ocean-bubbles { display: none; }
+}
+
+/* ============ Premium polish pass ============ */
+/* --- Glass surface hierarchy: KPI (lightest) < chart (medium) < table (strongest) --- */
+.kpi-card { background: linear-gradient(158deg, rgba(13, 43, 63, 0.62) 0%, rgba(8, 29, 44, 0.74) 100%); }
+.chart-card { background: linear-gradient(158deg, rgba(11, 36, 54, 0.72) 0%, rgba(8, 27, 42, 0.82) 100%); }
+.table-card { background: linear-gradient(158deg, rgba(9, 30, 46, 0.86) 0%, rgba(7, 22, 36, 0.92) 100%); }
+
+/* --- KPI hierarchy + equal height + semantic icon alignment --- */
+.kpi-card { min-height: 160px; display: flex; flex-direction: column; }
+.kpi-card .aq-card-header { margin-bottom: 12px; align-items: center; }
+.kpi-card .aq-card-title { font-size: 14.5px; }
+.metric-number { font-size: 32px; }
+.metric-value { margin-top: 2px; }
+.kpi-value-note { margin: 6px 0 0; font-size: 12px; font-weight: 600; color: var(--muted); }
+.kpi-unit-inline { color: var(--text-soft); }
+.kpi-testnet { color: #c3b8ff; font-weight: 800; font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; }
+.kpi-support { font-size: 12.5px; margin-top: 8px; }
+
+/* --- Card header alignment (tooltip icons align across cards) --- */
+.aq-card-header { align-items: center; }
+
+/* --- Chart polish --- */
+.chart-axis { fill: var(--muted); font-size: 10px; }
+.chart-grid { stroke: rgba(255, 255, 255, 0.055); }
+.line-dot { fill: currentColor; stroke: rgba(3, 12, 20, 0.55); stroke-width: 1; }
+.line-dot:hover { r: 4.4; }
+.legend-list li { font-size: 12.5px; color: var(--text-soft); }
+.chart-summary { color: var(--text-soft); }
+.chart-body { animation: chart-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes chart-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* --- Glass tooltip surface + fade/scale --- */
+.help-tooltip-pop {
+  background: linear-gradient(158deg, rgba(12, 38, 56, 0.96), rgba(8, 26, 40, 0.97));
+  border: 1px solid rgba(125, 227, 244, 0.16);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  transform: translateX(-100%);
+  animation: tooltip-in 0.14s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes tooltip-in {
+  from { opacity: 0; transform: translateX(-100%) scale(0.96); }
+  to { opacity: 1; transform: translateX(-100%) scale(1); }
+}
+
+/* --- Table readability --- */
+.data-table th { padding: 12px 16px; }
+.data-table td { padding: 16px; font-size: 13.5px; }
+.data-table tbody tr { transition: background 0.14s ease; }
+.data-table tbody tr:hover { background: rgba(52, 211, 238, 0.05); }
+.ref-cell {
+  display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 700;
+  color: var(--aqua-300); background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.22); padding: 3px 8px; border-radius: 6px;
+}
+.data-table .coming-soon-action { opacity: 0.82; }
+.data-table .coming-soon-action:hover { opacity: 0.96; }
+
+/* --- Sidebar: width, no label truncation, lock icon --- */
+:root { --sidebar-w: 256px; }
+.sidebar-item:not(.collapsed) .sidebar-item-label { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.2; }
+.sidebar-item:not(.collapsed) { min-height: 40px; height: auto; padding-top: 5px; padding-bottom: 5px; }
+.sidebar-lock { flex: none; display: inline-flex; color: var(--muted-dim); opacity: 0.75; }
+
+/* --- Topbar: collapse workspace subtitle / username text at medium widths --- */
+@media (max-width: 1200px) { .topbar-identity .identity-text { display: none; } }
+
+/* --- Composition: consistent 8-point spacing --- */
+.content-layout { gap: 24px; }
+.content-body { gap: 24px; }
+.kpi-grid { gap: 16px; }
+
+/* --- Micro-interactions --- */
+.kpi-card, .chart-card { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+.kpi-card:hover, .chart-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(125, 227, 244, 0.24);
+  box-shadow: 0 26px 54px -24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.table-card { transition: border-color 0.2s ease; }
+.table-card:hover { border-color: rgba(125, 227, 244, 0.2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .kpi-card, .chart-card { transition: none !important; }
+  .kpi-card:hover, .chart-card:hover { transform: none !important; }
+  .chart-body, .help-tooltip-pop { animation: none !important; }
 }

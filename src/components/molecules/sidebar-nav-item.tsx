@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { NavIcon } from "@/components/atoms/nav-icon";
-import { ComingSoonBadge } from "@/components/molecules/coming-soon-badge";
 import type { NavIconName } from "@/features/dashboard-shell/navigation";
 
 export interface SidebarNavItemProps {
@@ -10,7 +9,6 @@ export interface SidebarNavItemProps {
   href?: string;
   active?: boolean;
   comingSoon?: boolean;
-  comingSoonLabel?: string;
   /** Explanation shown for coming-soon items (also the a11y title). */
   comingSoonTooltip?: string;
   collapsed?: boolean;
@@ -32,7 +30,6 @@ export function SidebarNavItem({
   href,
   active = false,
   comingSoon = false,
-  comingSoonLabel,
   comingSoonTooltip,
   collapsed = false,
   tip,
@@ -53,7 +50,14 @@ export function SidebarNavItem({
         <NavIcon name={icon} />
       </span>
       <span className="sidebar-item-label">{label}</span>
-      {comingSoon && !collapsed && comingSoonLabel && <ComingSoonBadge label={comingSoonLabel} />}
+      {comingSoon && !collapsed && (
+        <span className="sidebar-lock" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="5" y="11" width="14" height="9" rx="2" />
+            <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          </svg>
+        </span>
+      )}
       {tip && (
         <span className="sidebar-tip" aria-hidden="true">
           {tip}

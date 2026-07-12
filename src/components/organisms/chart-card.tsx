@@ -16,12 +16,14 @@ export interface ChartCardProps {
   /** Accessible text summary of the chart. */
   summary: string;
   legend: ReactNode;
+  /** Period/selector label; defaults to the shared "Last 6 months". */
+  period?: string;
   state?: ChartState;
   children: ReactNode;
 }
 
 /** Chart wrapper: title, "?" tooltip, period, chart, legend, text summary, states. */
-export function ChartCard({ title, tooltip, source, summary, legend, state = "ready", children }: ChartCardProps) {
+export function ChartCard({ title, tooltip, source, summary, legend, period, state = "ready", children }: ChartCardProps) {
   const { dict } = useI18n();
   const c = dict.buyerDashboard.charts;
 
@@ -29,7 +31,7 @@ export function ChartCard({ title, tooltip, source, summary, legend, state = "re
     <GlassCard className="chart-card">
       <div className="chart-head">
         <CardHeaderWithHelp title={title} tooltip={tooltip} />
-        <span className="chart-period">{c.period6m}</span>
+        <span className="chart-period">{period ?? c.period6m}</span>
       </div>
 
       {state === "loading" ? (

@@ -101,6 +101,7 @@ export interface Dictionary {
       empty: string;
       error: string;
       period6m: string;
+      currentStatus: string;
       tradeActivity: { title: string; tooltip: string; seriesRfqs: string; seriesConfirmed: string; summary: string; source: string };
       shipmentStatus: { title: string; tooltip: string; totalLabel: string; summary: string; source: string };
     };

@@ -44,7 +44,7 @@ export function BuyerActionTable({ rows = BUYER_ACTIONS }: BuyerActionTableProps
       header: t.headers.priority,
       render: (row) => <PriorityIndicator priority={row.priority} label={b.priorities[row.priority]} />,
     },
-    { key: "reference", header: t.headers.reference, render: (row) => <span className="mono-cell">{row.reference}</span> },
+    { key: "reference", header: t.headers.reference, render: (row) => <span className="ref-cell">{row.reference}</span> },
     {
       key: "exporter",
       header: t.headers.exporter,

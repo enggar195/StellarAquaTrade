@@ -136,6 +136,7 @@ export const zhCN: Dictionary = {
       empty: "此期间没有数据。",
       error: "无法加载图表数据。",
       period6m: "最近 6 个月",
+      currentStatus: "当前状态",
       tradeActivity: {
         title: "交易活动",
         tooltip: "最近六个月每月创建的询价数量和确认的交易数量。原型示例数据。",

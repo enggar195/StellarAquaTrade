@@ -31,10 +31,10 @@ export function LineChart({ labels, series }: LineChartProps) {
 
   return (
     <svg className="line-chart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      {[0, 0.5, 1].map((f) => (
+      {[0, 0.25, 0.5, 0.75, 1].map((f) => (
         <line key={f} className="chart-grid" x1={padL} x2={W - padR} y1={padT + plotH - f * plotH} y2={padT + plotH - f * plotH} />
       ))}
-      {[0, max].map((v) => (
+      {[0, Math.round(max / 2), max].map((v) => (
         <text key={v} className="chart-axis" x={padL - 6} y={y(v) + 3} textAnchor="end">
           {v}
         </text>
@@ -48,7 +48,9 @@ export function LineChart({ labels, series }: LineChartProps) {
         <g key={s.label} style={{ color: s.color }}>
           <polyline className="line-path" points={s.values.map((v, i) => `${x(i)},${y(v)}`).join(" ")} />
           {s.values.map((v, i) => (
-            <circle key={i} className="line-dot" cx={x(i)} cy={y(v)} r="2.6" />
+            <circle key={i} className="line-dot" cx={x(i)} cy={y(v)} r="3">
+              <title>{`${labels[i]} · ${s.label}: ${v}`}</title>
+            </circle>
           ))}
         </g>
       ))}

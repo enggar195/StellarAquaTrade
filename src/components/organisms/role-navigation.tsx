@@ -43,7 +43,6 @@ export function RoleNavigation({ role, collapsed = false, onNavigate }: RoleNavi
                     href={href ?? undefined}
                     active={active}
                     comingSoon={comingSoon}
-                    comingSoonLabel={dict.dashboard.comingSoon}
                     comingSoonTooltip={dict.dashboard.comingSoonTooltip}
                     collapsed={collapsed}
                     tip={tip}

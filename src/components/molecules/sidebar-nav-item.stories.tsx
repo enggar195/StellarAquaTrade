@@ -22,7 +22,7 @@ type Story = StoryObj<typeof SidebarNavItem>;
 export const Default: Story = {};
 export const Active: Story = { args: { active: true } };
 export const ComingSoon: Story = {
-  args: { label: "RFQs", icon: "rfq", href: undefined, comingSoon: true, comingSoonLabel: "Coming soon", comingSoonTooltip: "This module belongs to a future implementation phase." },
+  args: { label: "RFQs", icon: "rfq", href: undefined, comingSoon: true, comingSoonTooltip: "This module belongs to a future implementation phase." },
 };
 export const Collapsed: Story = { args: { active: true, collapsed: true, tip: "Dashboard" } };
 export const BahasaIndonesia: Story = { args: { label: "Dasbor" } };
