@@ -81,6 +81,76 @@ export interface Dictionary {
     mobileMenu: string;
     breadcrumb: string;
   };
+  buyerDashboard: {
+    title: string;
+    subtitle: string;
+    createRfq: string;
+    prototypeBanner: { title: string; body: string };
+    criticalBanner: { title: string; body: string; action: string };
+    kpi: {
+      activeRfqs: { label: string; support: string; tooltip: string };
+      awaitingFunding: { label: string; support: string; tooltip: string };
+      shipmentsInTransit: { label: string; support: string; tooltip: string };
+      arrivalInspectionDue: { label: string; support: string; tooltip: string };
+      openClaims: { label: string; support: string; tooltip: string };
+      tradeSpend: { label: string; support: string; tooltip: string; badge: string };
+    };
+    units: { trades: string; xlm: string; count: string };
+    charts: {
+      loading: string;
+      empty: string;
+      error: string;
+      period6m: string;
+      tradeActivity: { title: string; tooltip: string; seriesRfqs: string; seriesConfirmed: string; summary: string; source: string };
+      shipmentStatus: { title: string; tooltip: string; totalLabel: string; summary: string; source: string };
+    };
+    shipmentStatuses: { preparing: string; inTransit: string; arrived: string; delayed: string };
+    months: { jan: string; feb: string; mar: string; apr: string; may: string; jun: string };
+    actionTable: {
+      title: string;
+      tooltip: string;
+      empty: string;
+      invitedExporters: string;
+      headers: {
+        priority: string;
+        reference: string;
+        exporter: string;
+        requiredAction: string;
+        deadline: string;
+        status: string;
+        action: string;
+      };
+    };
+    priorities: { high: string; medium: string; low: string };
+    requiredActions: {
+      completeArrivalInspection: string;
+      completeFundingEvidence: string;
+      compareQuotations: string;
+      reviewExporterResponse: string;
+    };
+    actionStatuses: { inspectionPending: string; awaitingFunding: string; responses: string; negotiating: string };
+    rowActions: { review: string; compare: string };
+    relative: { today: string; tomorrow: string; yesterday: string };
+    txTable: {
+      title: string;
+      tooltip: string;
+      empty: string;
+      openTestXlm: string;
+      notAvailable: string;
+      network: string;
+      headers: {
+        time: string;
+        type: string;
+        recipient: string;
+        amount: string;
+        network: string;
+        status: string;
+        hash: string;
+      };
+    };
+    txType: { testPayment: string };
+    txStatus: { successful: string; failed: string };
+  };
   auth: {
     eyebrow: string;
     heading: string;

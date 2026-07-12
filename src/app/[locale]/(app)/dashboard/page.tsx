@@ -1,5 +1,5 @@
-import { DashboardShellPage } from "@/features/dashboard-shell/dashboard-shell-page";
+import { BuyerDashboardPage } from "@/features/buyer-dashboard/buyer-dashboard-page";
 
 export default function Page() {
-  return <DashboardShellPage />;
+  return <BuyerDashboardPage />;
 }
