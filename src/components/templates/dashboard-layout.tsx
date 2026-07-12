@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react";
 import { AppSidebar } from "@/components/organisms/app-sidebar";
 import { AppTopbar } from "@/components/organisms/app-topbar";
 import type { Crumb } from "@/components/organisms/breadcrumbs";
+import { DashboardAtmosphere } from "@/components/organisms/dashboard-atmosphere";
 import { MobileNavigationDrawer } from "@/components/organisms/mobile-navigation-drawer";
 import type { Role } from "@/features/dashboard-shell/navigation";
 
@@ -24,17 +25,20 @@ export function DashboardLayout({ role, breadcrumbs, children }: DashboardLayout
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div className={`dashboard-shell${collapsed ? " sidebar-collapsed" : ""}`}>
-      <AppSidebar role={role} collapsed={collapsed} onToggleCollapse={() => setCollapsed((value) => !value)} />
+    <>
+      <DashboardAtmosphere />
+      <div className={`dashboard-shell${collapsed ? " sidebar-collapsed" : ""}`}>
+        <AppSidebar role={role} collapsed={collapsed} onToggleCollapse={() => setCollapsed((value) => !value)} />
 
-      <div className="shell-main">
-        <AppTopbar breadcrumbs={breadcrumbs} onOpenDrawer={() => setDrawerOpen(true)} />
-        <main className="shell-content" id="main-content">
-          {children}
-        </main>
+        <div className="shell-main">
+          <AppTopbar breadcrumbs={breadcrumbs} onOpenDrawer={() => setDrawerOpen(true)} />
+          <main className="shell-content" id="main-content">
+            {children}
+          </main>
+        </div>
+
+        <MobileNavigationDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} role={role} />
       </div>
-
-      <MobileNavigationDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} role={role} />
-    </div>
+    </>
   );
 }
