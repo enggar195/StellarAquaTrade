@@ -269,6 +269,97 @@ export interface Dictionary {
     relative: { today: string; tomorrow: string };
     openTestXlm: string;
   };
+  fishBatches: {
+    title: string;
+    subtitle: string;
+    createFishBatch: string;
+    createFishBatchTooltip: string;
+    prototypeBanner: { title: string; body: string };
+    units: { fish: string; batches: string };
+    kpi: {
+      totalActiveBatches: { label: string; support: string; tooltip: string };
+      availableQuantity: { label: string; support: string; tooltip: string };
+      qcPending: { label: string; support: string; tooltip: string };
+      reserved: { label: string; support: string; tooltip: string };
+    };
+    composition: {
+      title: string;
+      tooltip: string;
+      source: string;
+      summary: string;
+      period: string;
+      centerLabel: string;
+    };
+    /** Labels for the four batch-status segments (also used by the availability pill). */
+    statusLabels: { available: string; partiallyReserved: string; reserved: string; qcPending: string };
+    qcLabels: { passed: string; pending: string; revisionRequired: string };
+    gradeLabels: { gradeA: string; gradeB: string; premium: string; showGrade: string };
+    toolbar: {
+      searchLabel: string;
+      searchPlaceholder: string;
+      availabilityLabel: string;
+      qcLabel: string;
+      speciesLabel: string;
+      originLabel: string;
+      gradeLabel: string;
+      reset: string;
+      filtersHeading: string;
+      /** "{count} of {total} batches" */
+      resultCount: string;
+      allAvailability: string;
+      allQc: string;
+      allSpecies: string;
+      allOrigins: string;
+      allGrades: string;
+    };
+    viewToggle: { label: string; table: string; cards: string };
+    table: {
+      title: string;
+      tooltip: string;
+      empty: string;
+      viewPreview: string;
+      /** "Sort by {column}" */
+      sortAria: string;
+      headers: {
+        batchId: string;
+        speciesVariety: string;
+        grade: string;
+        size: string;
+        quantity: string;
+        origin: string;
+        qc: string;
+        availability: string;
+        updated: string;
+        action: string;
+      };
+    };
+    card: { mediaAlt: string; qcLabel: string; availabilityLabel: string; updatedLabel: string };
+    drawer: {
+      title: string;
+      close: string;
+      mediaAlt: string;
+      labels: {
+        species: string;
+        variety: string;
+        grade: string;
+        size: string;
+        quantity: string;
+        origin: string;
+        source: string;
+        qc: string;
+        availability: string;
+        updated: string;
+      };
+      visibilityTitle: string;
+      visibility: { passed: string; pending: string; revisionRequired: string };
+      reservationTitle: string;
+      /** none/full = plain; partial = "{reserved} of {initial} reserved" */
+      reservation: { none: string; full: string; partial: string };
+      actionsTitle: string;
+      actions: { openFullDetail: string; editBatch: string; archive: string };
+    };
+    openTestXlm: string;
+  };
 }
 
 const dictionaries: Record<Locale, Dictionary> = {

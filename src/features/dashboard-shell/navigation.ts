@@ -35,11 +35,12 @@ export type NavLabelKey = Exclude<keyof Dictionary["navigation"], "sections">;
 export type SectionKey = keyof Dictionary["navigation"]["sections"];
 
 /** Active items link to an existing route; coming-soon items do not navigate. */
-export type NavRoute = "dashboard" | "exporter-dashboard" | "test-xlm";
+export type NavRoute = "dashboard" | "exporter-dashboard" | "fish-batches" | "test-xlm";
 
 const ROUTE_PATHS: Record<NavRoute, string> = {
   dashboard: "dashboard",
   "exporter-dashboard": "exporter/dashboard",
+  "fish-batches": "exporter/fish-batches",
   "test-xlm": "test-xlm",
 };
 
@@ -96,7 +97,10 @@ export const NAVIGATION: Record<Role, NavSection[]> = {
   ],
   exporter: [
     { sectionKey: "primary", items: [active("dashboard", "dashboard", "exporter-dashboard")] },
-    { sectionKey: "supply", items: [soon("fishBatches", "batch"), soon("privateCatalog", "catalog")] },
+    {
+      sectionKey: "supply",
+      items: [active("fishBatches", "batch", "fish-batches"), soon("privateCatalog", "catalog")],
+    },
     {
       sectionKey: "trade",
       items: [soon("rfqs", "rfq"), soon("quotations", "quotation"), soon("tradeOrders", "order")],
